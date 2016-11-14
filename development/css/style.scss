@@ -1,0 +1,100 @@
+// Variables
+$bannerWidth:	970px;		// Banner Width
+$bannerHeight:	250px;		// Banner Height
+$borderColour:	#000000;	// Banner Border Colour
+$frames:		2;			// Total number of frames
+
+// Import SASS
+@import "reset",
+		"utils";
+
+// Global Styles
+body {
+	position: initial;
+	width: $bannerWidth;
+	height: $bannerHeight;
+}
+
+#border {
+	width: $bannerWidth;
+	height: $bannerHeight;
+	border: 1px solid $borderColour;
+	overflow: hidden;
+	opacity: 0;
+}
+
+@for $i from 1 through $frames {
+	#animation,
+	#frame#{$i} {
+		@extend %frames;
+	}
+}
+
+// Loading GIF
+#loading {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+// Frame 1
+#frame1Example {
+	background: #ff0b96;
+	color: white;
+	left: 10px;
+	bottom: 10px;
+	padding: 5px 20px;
+	font-size: 14px;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+// Frame 2
+#frame2Example {
+	background: #ff0b96;
+	color: white;
+	right: 10px;
+	top: 10px;
+	padding: 5px 20px;
+	font-size: 14px;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+#trailerContainer {
+	width: 376px;
+	height: 250px;
+	z-index: 50;
+	background: url('../img/still.jpg');
+	background-size: cover;
+	cursor: pointer;
+	border-right: 1px solid black;
+}
+
+#trailer {
+	cursor: auto;
+}
+
+// Exits
+#bgExit {
+	width: $bannerWidth;
+	height: $bannerHeight;
+	cursor: pointer;
+	z-index: 49;
+}
+
+#cta {
+	width: 150px;
+	height: 30px;
+	bottom: 10px;
+	right: 10px;
+	background: url('../img/cta.png');
+	cursor: pointer;
+	opacity:0;
+	z-index: 50;
+	@include transition(0.15s, linear);
+
+	&:hover {
+		background: url('../img/cta-hover.png');
+	}
+}
