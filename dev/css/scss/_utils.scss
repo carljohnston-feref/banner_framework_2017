@@ -1,0 +1,30 @@
+// Frames Placeholder for @extend
+%frames {
+	width: $bannerWidth - ($borderWidth * 2);
+	height: $bannerHeight - ($borderWidth * 2);
+	top: 0;
+	left: 0;
+	opacity: 0;
+	z-index: 0;
+	position: absolute;
+}
+
+// Vertical Align Mixin
+@mixin vertical-align($position: relative) {
+	position: $position;
+	top: 50%;
+	transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-webkittransform: translateY(-50%);
+}
+
+// Transition Mixin
+@mixin transition($transitionSpeed: 0.2s, $ease: cubic-bezier(0.8, 0, 0.2, 1)) {
+	transition: $transitionSpeed $ease;
+	-o-transition: $transitionSpeed $ease;
+	-ms-transition: $transitionSpeed $ease;
+	-moz-transition: $transitionSpeed $ease;
+	-webkit-transition: $transitionSpeed $ease;
+}

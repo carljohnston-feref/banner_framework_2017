@@ -7,106 +7,101 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	imagemin = require('gulp-imagemin'),
+	htmlreplace = require('gulp-html-replace'),
 	del = require('del');
 
 // HTML task
-gulp.task('html', function() {												// Define 'html' task
-	return gulp.src('development/**/*.html')								// Set HTML file to compile
-	.pipe(gulp.dest('distribution'))										// Duplicate 'index.html' to 'distribution' folder
+gulp.task('html', function() {										// Define 'html' task
+	return gulp.src('dev/**/*.html')								// Set HTML file to compile
+	.pipe(gulp.dest('dist'))										// Duplicate 'index.html' to 'dist' folder
+    .pipe(htmlreplace({												// Replace HTML
+        'css': 'css/style.min.css',									// Change css href to "css/style.min.css"
+        'js': 'js/scripts.min.js'									// Change js src to "js/scripts.min.js"
+    }))
+    .pipe(gulp.dest('dist/'));										// Set ouptput
 });
 
 // SASS task
-gulp.task('sass', function() {												// Define 'sass' task
-	return gulp.src('development/css/**/*.scss')							// Set SASS file to compile
-	.pipe(sass())															// Compile SASS to CSS
-	.pipe(gulp.dest('development/css'))										// Save 'style.css' in 'development/css' folder
-	.pipe(rename({suffix: '.min'}))											// Add '.min' suffix to filename
-	.pipe(minify())															// Minify CSS
-	.pipe(gulp.dest('development/css'))										// Dupicate 'style.min.css' to 'development/css' folder
-	.pipe(gulp.dest('distribution/css'))									// Dupicate 'style.min.css' to 'distribution/css' folder
+gulp.task('sass', function() {										// Define 'sass' task
+	return gulp.src('dev/css/scss/**/*.scss')						// Set SASS file to compile
+	.pipe(sass())													// Compile SASS to CSS
+	.pipe(gulp.dest('dev/css'))										// Save 'style.css' in 'dev/css' folder
+	.pipe(rename({suffix: '.min'}))									// Add '.min' suffix to filename
+	.pipe(minify())													// Minify CSS
+	.pipe(gulp.dest('dev/css'))										// Dupicate 'style.min.css' to 'dev/css' folder
+	.pipe(gulp.dest('dist/css'))									// Dupicate 'style.min.css' to 'dist/css' folder
 });
 
 // JS task
-gulp.task('js', function() {												// Define 'js' task
+gulp.task('js', function() {										// Define 'js' task
 
 	return gulp.src([
-		'development/js/**/*.js',											// Set JS file to compile
-		'!development/js/ignore/**/*.js',									// Set JS folder to ignore in compile
-		'!development/js/scripts.js',										// Set JS file to ignore in compile
-		'!development/js/scripts.min.js'									// Set JS file to ignore in compile
+		'dev/js/**/*.js',											// Set JS file to compile
+		'!dev/js/ignore/**/*.js',									// Set JS folder to ignore in compile
+		'!dev/js/scripts.js',										// Set JS file to ignore in compile
+		'!dev/js/scripts.min.js'									// Set JS file to ignore in compile
 	])
 
-	.pipe(order([															// Compile JS files in specific order
-		'modules/core.js',													// core.js
-		'modules/doubleclick.js',											// doubleclick.js
-		'modules/date_switch.js',											// date_switch.js
-		'modules/custom_metrics.js',										// custom_metrics.js
-		'modules/animation.js',												// animation.js
-		'modules/exits.js',													// exits.js
-		'modules/remarketing.js',											// remarketing.js
-		'scripts/*.js'														// all other scripts
-	]))
-
-	.pipe(concat('scripts.js'))												// Concatinate all scripts into one 'scripts.js' file
-	.pipe(gulp.dest('development/js'))										// Save 'scripts.js' in 'development/js' folder
-	.pipe(rename({suffix: '.min'}))											// Add '.min' suffix to filename
-	.pipe(uglify())															// Minify JS
-	.pipe(gulp.dest('development/js'))										// Save 'scripts.min.js' to 'development/js'
-	.pipe(gulp.dest('distribution/js'))										// Save 'scripts.min.js' to 'distribution/js'
+	.pipe(concat('scripts.js'))										// Concatinate all scripts into one 'scripts.js' file
+	.pipe(gulp.dest('dev/js'))										// Save 'scripts.js' in 'dev/js' folder
+	.pipe(rename({suffix: '.min'}))									// Add '.min' suffix to filename
+	.pipe(uglify())													// Minify JS
+	.pipe(gulp.dest('dev/js'))										// Save 'scripts.min.js' to 'dev/js'
+	.pipe(gulp.dest('dist/js'))										// Save 'scripts.min.js' to 'dist/js'
 });
 
 // IMG task
 gulp.task('img', function() {
-	del(['distribution/img/*'])												// Delete 'distribution/img'
+	del(['dist/img/*'])												// Delete 'dist/img'
 
-	return gulp.src('development/img/**/*.+(png|jpg|gif|svg)')				// Set location of image folder, and file types
-	.pipe(imagemin())														// Compress images
-	.pipe(gulp.dest('distribution/img'))									// Duplicate images to 'distribution/img' folder
+	return gulp.src('dev/img/**/*.+(png|jpg|gif|svg)')				// Set location of image folder, and file types
+	.pipe(imagemin())												// Compress images
+	.pipe(gulp.dest('dist/img'))									// Duplicate images to 'dist/img' folder
 });
 
 // VIDEO task
 gulp.task('video', function() {
-	del(['distribution/video/*'])											// Delete 'distribution/video'
+	del(['dist/video/*'])											// Delete 'dist/video'
 
-	return gulp.src('development/video/**/*.+(mp4|webm)')					// Set location of 'video' folder, and file types
-	.pipe(gulp.dest('distribution/video'))									// Duplicate videos to 'distribution/video' folder
+	return gulp.src('dev/video/**/*.+(mp4|webm)')					// Set location of 'video' folder, and file types
+	.pipe(gulp.dest('dist/video'))									// Duplicate videos to 'dist/video' folder
 });
 
 // Clean task
-gulp.task('clean', function() {												// Define 'clean' task
+gulp.task('clean', function() {										// Define 'clean' task
 
 	del([
-		'development/css/style.css',										// Delete 'style.css' in the 'development' folder
-		'development/css/style.min.css'										// Delete 'style.min.css' in the 'development' folder
+		'dev/css/style.css',										// Delete 'style.css' in the 'dev' folder
+		'dev/css/style.min.css'										// Delete 'style.min.css' in the 'dev' folder
 	])
 
 	del([
-		'development/js/scripts.js',										// Delete 'scripts.js' in the 'development' folder
-		'development/js/scripts.min.js'										// Delete 'scripts.min.js' in the 'development' folder
+		'dev/js/scripts.js',										// Delete 'scripts.js' in the 'dev' folder
+		'dev/js/scripts.min.js'										// Delete 'scripts.min.js' in the 'dev' folder
 	])
 
 	del([
-		'distribution/css/*'												// Delete 'distribution/css' folder contents before running 'default' tasks
+		'dist/css/*'												// Delete 'dist/css' folder contents before running 'default' tasks
 	])
 
 	del([
-		'distribution/js/*'													// Delete 'distribution/js' folder contents before running 'default' tasks
+		'dist/js/*'													// Delete 'dist/js' folder contents before running 'default' tasks
 	])
 });
 
 // Default task
-gulp.task('default', ['clean'], function() {								// Define 'default' task
-	gulp.start('html', 'sass', 'js', 'img', 'video');						// Run 'html', 'sass', 'js', 'img', 'video' tasks
+gulp.task('default', ['clean'], function() {						// Define 'default' task
+	gulp.start('html', 'sass', 'js', 'img', 'video');		// Run 'html', 'sass', 'js', 'img', 'video' tasks
 });
 
 // Watch task
-gulp.task('watch', function() {												// Define 'watch' task
-	gulp.watch('development/**/*.html', ['html']);							// Watch for changes in any '.html' files
-	gulp.watch('development/css/**/*.scss', ['sass']);						// Watch for changes in 'development/sass' folder
-	gulp.watch('development/js/modules/**/*.js', ['js']); 					// Watch for changes in 'development/js' folder
-	gulp.watch('development/js/scripts/**/*.js', ['js']); 					// Watch for changes in 'development/js' folder
-	gulp.watch('development/img/**/*.+(png|jpg|gif|svg)', ['img']);			// Watch for changes in 'development/img' folder
-	gulp.watch('development/video/**/*.+(mp4|webm)', ['video']);			// Watch for changes in 'development/video' folder
+gulp.task('watch', function() {										// Define 'watch' task
+	gulp.watch('dev/**/*.html', ['html']);							// Watch for changes in any '.html' files
+	gulp.watch('dev/css/**/*.scss', ['sass']);						// Watch for changes in 'dev/sass' folder
+	gulp.watch('dev/js/modules/**/*.js', ['js']); 					// Watch for changes in 'dev/js' folder
+	gulp.watch('dev/js/scripts/**/*.js', ['js']); 					// Watch for changes in 'dev/js' folder
+	gulp.watch('dev/img/**/*.+(png|jpg|gif|svg)', ['img']);			// Watch for changes in 'dev/img' folder
+	gulp.watch('dev/video/**/*.+(mp4|webm)', ['video']);			// Watch for changes in 'dev/video' folder
 });
 
 // Assets task

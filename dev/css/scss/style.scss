@@ -1,0 +1,165 @@
+// Variables
+$bannerWidth:	970px;		// Banner Width
+$bannerHeight:	250px;		// Banner Height
+$borderWidth:	1px;		// Width of Border
+$borderColour:	#797979;	// Banner Border Colour
+$frames:		4;			// Total number of frames
+
+// Import SASS
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,300i,600'),
+		"reset",
+		"utils";
+
+// Global Styles
+body {
+	background: black;
+	color: #4c4c60;
+	font-family: 'Raleway', sans-serif;
+	font-size: 18px;
+	font-weight: 300;
+	letter-spacing: 3.5px;
+}
+
+// Ad Container
+#adContainer {
+	width: $bannerWidth;
+	height: $bannerHeight;
+	margin: auto;
+	border: $borderWidth solid $borderColour;
+	overflow: hidden;
+	background: #ffffff;
+	position: relative;
+}
+
+// Loop Frames
+@for $i from 1 through $frames {
+	#animation,
+	#frame#{$i} {
+		@extend %frames;
+	}
+}
+
+// Loading GIF
+#loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+// Frame 1
+#frame1 {
+
+	video {
+		width: $bannerWidth - ($borderWidth * 2);
+		height: $bannerHeight - ($borderWidth * 2);
+	}
+}
+
+// Frame 2
+#frame2 {
+
+	#frame2Logo {
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+// Frame 3
+#frame3 {
+	background: url('../img/frame3-bg.jpg') no-repeat;
+
+	#frame3Right {
+		width: 50%;
+		text-align: center;
+		margin-left: auto;
+		@include vertical-align();
+	}
+
+	.frame3Quote {
+		text-transform: uppercase;
+	}
+
+	.frame3Reference {
+		font-size: 13px;
+		font-style: italic;
+		margin-top: -4px;
+		margin-bottom: 25px;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+}
+
+// Frame 4
+#frame4 {
+	background: #ffffff;
+	font-weight: 600;
+
+	#frame4Left,
+	#frame4Right {
+		width: 50%;
+		float: left;
+		height: 100%;
+	}
+
+	#frame4Right {
+		text-align: right;
+		padding: 20px;
+	}
+
+	#frame4Video {
+		width: 484px;
+		height: 248px;
+	}
+
+	#frame4Logo {
+		width: 335px;
+		height: auto;
+	}
+
+	p {
+		margin-top: 5px;
+	}
+
+	#frame4Title {
+		text-transform: uppercase;
+		color: #bfbfbf;
+	}
+
+	#frame4Cta {
+		width: 165px;
+		height: 50px;
+		padding: 4px;
+		color: white;
+		text-transform: uppercase;
+		font-size: 15px;
+		font-weight: 600;
+		text-align: center;
+		background: #4c4c60;
+		border-radius: 5px;
+	    position: absolute;
+	    bottom: 20px;
+	    right: 20px;
+	    cursor: pointer;
+
+	    &:hover {
+	    	background: lighten(#4c4c60, 25%);
+	    }
+
+	    p {
+	    	margin: 0;
+	    	position: relative;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			-o-transform: translate(-50%, -50%);
+			-ms-transform: translate(-50%, -50%);
+			-moz-transform: translate(-50%, -50%);
+			-webkittransform: translate(-50%, -50%);
+	    }
+	}
+}
