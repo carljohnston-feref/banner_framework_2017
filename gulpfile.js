@@ -61,10 +61,10 @@ gulp.task('img', function() {
 
 // VIDEO task
 gulp.task('video', function() {
-	del(['dist/video/*'])											// Delete 'dist/video'
+	del(['dist/videos/*'])											// Delete 'dist/video'
 
-	return gulp.src('dev/video/**/*.+(mp4|webm)')					// Set location of 'video' folder, and file types
-	.pipe(gulp.dest('dist/video'))									// Duplicate videos to 'dist/video' folder
+	return gulp.src('dev/videos/**/*.+(mp4|webm)')					// Set location of 'video' folder, and file types
+	.pipe(gulp.dest('dist/videos'))									// Duplicate videos to 'dist/video' folder
 });
 
 // Clean task
@@ -101,7 +101,7 @@ gulp.task('watch', function() {										// Define 'watch' task
 	gulp.watch('dev/js/modules/**/*.js', ['js']); 					// Watch for changes in 'dev/js' folder
 	gulp.watch('dev/js/scripts/**/*.js', ['js']); 					// Watch for changes in 'dev/js' folder
 	gulp.watch('dev/img/**/*.+(png|jpg|gif|svg)', ['img']);			// Watch for changes in 'dev/img' folder
-	gulp.watch('dev/video/**/*.+(mp4|webm)', ['video']);			// Watch for changes in 'dev/video' folder
+	gulp.watch('dev/videos/**/*.+(mp4|webm)', ['video']);			// Watch for changes in 'dev/video' folder
 });
 
 // Assets task
