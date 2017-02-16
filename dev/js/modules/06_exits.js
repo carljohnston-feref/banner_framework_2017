@@ -8,7 +8,6 @@ function mainExit(event) {
 // ctaExit
 function ctaExit(event) {
 	Enabler.exit('CTA Exit');
-
 }
 
 // Listen for exits

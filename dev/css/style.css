@@ -85,7 +85,7 @@ body {
     -o-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
-    -webkittransform: translateY(-50%); }
+    -webkit-transform: translateY(-50%); }
   #frame3 .frame3Quote {
     text-transform: uppercase; }
   #frame3 .frame3Reference {

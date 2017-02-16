@@ -182,116 +182,6 @@ function anim() {
 		  .to('#frame4Cta', 1.5, {autoAlpha:1}, "-=1.25");
 	}
 }
-// YouTube Video Reporting
-var player = document.getElementById('frame4Video');
- 
-player.addEventListener('buffering', function() {
-	Enabler.counter('Video trailer buffering', true);
-}, false);
-player.addEventListener('ended', function() {
-	Enabler.counter('Video trailer ended', true);
-}, false);
-player.addEventListener('paused', function() {
-	Enabler.counter('Video trailer paused', true);
-}, false);
-player.addEventListener('playing', function() {
-	Enabler.counter('Video trailer playing', true);
-}, false);
- 
-var videoProgress;
-player.addEventListener('viewed0percent', function() {
-    videoProgress = 0;
-    Enabler.counter('Video trailer 0 percent', true);
-}, false);
-player.addEventListener('viewed25percent', function() {
-    videoProgress = 25;
-    Enabler.counter('Video trailer 25 percent', true);
-}, false);
-player.addEventListener('viewed50percent', function() {
-    videoProgress = 50;
-    Enabler.counter('Video trailer 50 percent', true);
-}, false);
-player.addEventListener('viewed75percent', function() {
-    videoProgress = 75;
-    Enabler.counter('Video trailer 75 percent', true);
-}, false);
-player.addEventListener('viewed100percent', function(){
-    videoProgress = 100;
-    Enabler.counter('Video trailer 100 percent', true);
-}, false);
-
-// document.getElementById('bgExit').addEventListener('click', function() {
-//     if(videoProgress == 0){
-//         Enabler.counter('Video trailer 0 percent Background clickout', true);
-//     }else if(videoProgress == 25){
-//         Enabler.counter('Video trailer 25 percent Background clickout', true);
-//     }else if(videoProgress == 50){
-//         Enabler.counter('Video trailer 50 percent Background clickout', true);
-//     }else if(videoProgress == 75){
-//         Enabler.counter('Video trailer 75 percent Background clickout', true);
-//     }else if(videoProgress == 100){
-//         Enabler.counter('Video trailer 100 percent Background clickout', true);
-//     }
-// }, false);
- 
-// document.getElementById('cta').addEventListener('click', function() {
-//     if(videoProgress == 0){
-//         Enabler.counter('Video trailer 0 percent CTA clickout', true);
-//     }else if(videoProgress == 25){
-//         Enabler.counter('Video trailer 25 percent CTA clickout', true);
-//     }else if(videoProgress == 50){
-//         Enabler.counter('Video trailer 50 percent CTA clickout', true);
-//     }else if(videoProgress == 75){
-//         Enabler.counter('Video trailer 75 percent CTA clickout', true);
-//     }else if(videoProgress == 100){
-//         Enabler.counter('Video trailer 100 percent CTA clickout', true);
-//     }
-// }, false);
- 
-// player.addEventListener('previewed0percent', function() {}, false);
-// player.addEventListener('previewed25percent', function() {}, false);
-// player.addEventListener('previewed50percent', function() {}, false);
-// player.addEventListener('previewed75percent', function() {}, false);
-// player.addEventListener('previewed100percent', function() {}, false);
-// Remarketing Pixels
-var loadPixel = function(url) {
-	
-	// Create a new image element.
-	var imageElement = document.createElement('img');
-
-	// Add the image to the DOM.
-	document.body.appendChild(imageElement);
-
-	// Set the src attribute of the image.
-	imageElement.src = url;
-	imageElement.style.borderStyle = 'none';
-	imageElement.height = 1;
-	imageElement.width = 1;
-	imageElement.alt = '';
-};
-
-// The pixel URL to be loaded on exit. Replace with your corrected pixel URL:
-var pixelUrlExit = '//googleads.g.doubleclick.net/pagead/viewthroughconversion/931677505/?value=1.00&currency_code=GBP&label=arcfCN-xqWoQwYqhvAM&guid=ON&script=0';
-
-// The pixel URL to be loaded on impression.
-var pixelUrlImpression = '//googleads.g.doubleclick.net/pagead/viewthroughconversion/931677505/?value=1.00&currency_code=GBP&label=STe2CIGnrWoQwYqhvAM&guid=ON&script=0';
-
-// A Boolean flag to ensure the exit pixel loads only once per impression.
-var exitPixelWasLoaded = false;
-
-// Exit pixel will load only once.
-var exitHandler = function() {
-	if (!exitPixelWasLoaded) {
-		loadPixel(pixelUrlExit);
-		exitPixelWasLoaded = true;
-	}
-};
-
-// Register for the EXIT event from Studio.
-Enabler.addEventListener(studio.events.StudioEvent.EXIT, exitHandler);
-
-// Load the impression pixel.
-loadPixel(pixelUrlImpression);
 
 // Main Exit
 function mainExit(event) {
@@ -302,7 +192,6 @@ function mainExit(event) {
 // ctaExit
 function ctaExit(event) {
 	Enabler.exit('CTA Exit');
-
 }
 
 // Listen for exits
